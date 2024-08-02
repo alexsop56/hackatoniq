@@ -17,4 +17,6 @@ RUN mkdir -p "/usr/src/app/var/log"
 
 COPY .docker/backend/entrypoint.sh /usr/src/app/entrypoint.sh
 
+RUN chmod 775 /usr/src/app/entrypoint.sh
+
 ENTRYPOINT ["/usr/src/app/entrypoint.sh"]
