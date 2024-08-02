@@ -16,9 +16,6 @@ for i in "$@"; do
 
         docker volume rm ${COMPOSE_PROJECT_NAME}-mysql
 
-        # Запросите название проекта у пользователя
-        echo "Enter the project name (default: hackatoniq):"
-        read PROJECT_NAME
         PROJECT_NAME=${PROJECT_NAME:-hackatoniq}
 
         sed -i "s/^COMPOSE_PROJECT_NAME=.*/COMPOSE_PROJECT_NAME=${PROJECT_NAME}/" .env
