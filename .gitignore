@@ -18,3 +18,5 @@ frontend/yarn-error.log*
 
 .docker/.env
 .docker/docker-compose.yaml
+
+__pycache__
