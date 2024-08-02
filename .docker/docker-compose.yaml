@@ -1,0 +1,13 @@
+services:
+  node:
+    build:
+      context: ${PROJECT_PATH}
+      dockerfile: .docker/frontend/Dockerfile
+      target: ${STAGE}
+      args:
+        - NODE_VERSION=${NODE_VERSION}
+    restart: 'no'
+    volumes:
+      - ${PROJECT_PATH}/frontend:/home/node/app
+    ports:
+      - '80:80'
