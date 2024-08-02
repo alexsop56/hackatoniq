@@ -22,4 +22,6 @@ urlpatterns = [
     path('api/', include('worker_shifts.api.v1.urls')),  # Ensure this line is added
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
+    path('api/account/', include('account.api.v1.urls')),  # Include account app URLs here
+
 ]
