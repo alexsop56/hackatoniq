@@ -8,7 +8,7 @@ schema_view = get_schema_view(
     openapi.Info(
         title="ТехноЦех",
         default_version='v1',
-        description="Система менеджмента смен",
+        description="Cистема менеджмента проектов",
         terms_of_service="https://www.google.com/policies/terms/",
         contact=openapi.Contact(email="contact@myapi.local"),
         license=openapi.License(name="BSD License"),
