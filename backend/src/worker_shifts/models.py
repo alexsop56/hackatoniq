@@ -11,10 +11,11 @@ class Worker(models.Model):
 
 class WorkerShift(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-
-    worker = models.ForeignKey(Worker, on_delete=models.CASCADE)
+    workers = models.ManyToManyField(Worker, related_name='shifts')
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
 
+
     def __str__(self):
-        return f"{self.worker.name} ({self.start_time} - {self.end_time})"
+        worker_names = ', '.join(worker.name for worker in self.workers.all())
+        return f"Shift ({worker_names}) ({self.start_time} - {self.end_time})"
