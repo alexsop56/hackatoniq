@@ -1,7 +1,7 @@
 <template>
   <q-page class="column">
     <!-- Кнопка создания проекта (когда список пуст)  -->
-    <div class="row justify-center items-center flex-1" v-if="!projectsStore.items.length && !projectsStore.isLoading">
+    <div class="row items-center justify-center flex-1" v-if="!projectsStore.items.length && !projectsStore.isLoading">
       <q-btn icon="construction" unelevated color="primary" no-caps rounded label="Создать проект" />
     </div>
 

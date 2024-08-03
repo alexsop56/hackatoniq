@@ -75,3 +75,16 @@ u {
   font-family: $font-family-inter-regular;
   margin-bottom: 0;
 }
+
+.row items-center {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.modal-header {
+  font-size: 20px;
+  color: $accent;
+  font-family: $font-family-inter-semibold;
+}

@@ -1,16 +1,15 @@
 export default class Task {
   id
-  title
-  tasksCount
-  workersCount
+  period
+  price
+  workTypeTitle
   workersRequiredCount
-  address
-  attentionCount
-  todoCount
-  views
-  tasks
 
   constructor(data = {}) {
     this.id = data.id
+    this.period = data.period
+    this.price = data.price
+    this.workTypeTitle = data.workTypeTitle
+    this.workersRequiredCount = data.workersRequiredCount
   }
 }

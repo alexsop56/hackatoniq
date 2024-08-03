@@ -16,7 +16,7 @@ export default class ProjectApi {
               tasksCount: 10,
               workersCount: 5,
               workersRequiredCount: 13,
-              address: 'Улица пушкина, дом колотушкина',
+              address: 'Улица пушкина',
               attentionCount: 2,
               todoCount: 19,
               tasks: [

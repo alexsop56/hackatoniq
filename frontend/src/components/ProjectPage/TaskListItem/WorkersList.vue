@@ -28,6 +28,7 @@ export default {
     workers: {
       type: Array,
       required: true,
+      default: () => [],
     },
   },
   data() {

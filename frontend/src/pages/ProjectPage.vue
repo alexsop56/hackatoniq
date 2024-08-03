@@ -1,7 +1,7 @@
 <template>
   <q-page>
     <!-- Кнопка создания задания (когда список пуст)  -->
-    <div class="row justify-center items-center flex-1" v-if="!tasksStore.items.length && !tasksStore.isLoading">
+    <div class="row items-center justify-center flex-1" v-if="!tasksStore.items.length && !tasksStore.isLoading">
       <q-btn icon="construction" unelevated color="primary" no-caps rounded label="Создать задание" />
     </div>
 
@@ -19,18 +19,30 @@
         </div>
       </template>
     </q-infinite-scroll>
+
+    <!-- Кнопка создания задания -->
+    <q-page-sticky position="bottom-right" :offset="[18, 18]">
+      <q-btn round no-caps color="primary" @click="tasksStore.showTaskModal">
+        <q-icon name="add" color="white" />
+      </q-btn>
+    </q-page-sticky>
+
+    <!-- Модалки -->
+    <task-creating-modal />
   </q-page>
 </template>
 
 <script>
 import { useTasksStore } from 'stores/tasks'
 
+import TaskCreatingModal from 'src/components/ProjectPage/TaskCreatingModal.vue'
 import TaskListItem from 'src/components/ProjectPage/TaskListItem.vue'
 import TaskListItemSkeleton from 'src/components/ProjectPage/TaskListItemSkeleton.vue'
 
 export default {
   name: 'ProjectPage',
   components: {
+    TaskCreatingModal,
     TaskListItem,
     TaskListItemSkeleton,
   },
@@ -38,7 +50,7 @@ export default {
     return {
       tasksStore: useTasksStore(),
 
-      skeletonsCount: 10,
+      skeletonsCount: 15,
     }
   },
   mounted() {

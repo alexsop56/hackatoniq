@@ -15,7 +15,7 @@
         </div>
       </div>
 
-      <div class="row q-mt-sm items-center">
+      <div class="row items-center q-mt-sm">
         <q-icon name="pin_drop" size="24px" color="primary" />
         <p class="font-light">{{ item.address }}</p>
       </div>
