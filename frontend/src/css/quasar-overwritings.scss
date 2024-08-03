@@ -1,0 +1,11 @@
+#q-app {
+  max-width: 900px;
+  height: 100vh;
+  margin-left: auto;
+  margin-right: auto;
+  height: calc(var(--vh, 1vh) * 100);
+}
+
+.q-card {
+  border-radius: 10px !important;
+}
