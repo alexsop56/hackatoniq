@@ -38,10 +38,10 @@ class Project(models.Model):
 class WorkerTask(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     project = models.ForeignKey(Project, related_name='tasks', on_delete=models.CASCADE)
-    workers = models.ManyToManyField(Worker, related_name='shifts')
+    workers = models.ManyToManyField(Worker, related_name='tasks')
     workers_count = models.IntegerField(default=0)
     workers_required_count = models.IntegerField()
-    work_type_title = models.CharField(max_length=100)
+    work_type_title = models.CharField(max_length=100,default = 'ремонтные работы')
     price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     start_date = models.DateField(default=date.today)
     start_time = models.TimeField(default=time(10, 0))

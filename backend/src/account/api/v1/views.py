@@ -1,13 +1,14 @@
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework import status
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view,permission_classes
 from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
 from account.models import User
 from .serializers import PhoneSerializer, UserSerializer
+from rest_framework import generics
 
-
+from rest_framework.permissions import AllowAny
 @swagger_auto_schema(method='post', operation_id='отправить код',
                      # operation_description='Send an SMS code to a phone number and create a user if not exists.',
                      request_body=PhoneSerializer, responses={
@@ -16,6 +17,7 @@ from .serializers import PhoneSerializer, UserSerializer
         400: openapi.Response(description='Invalid input',
                               examples={'application/json': {"phone": ["This field is required."]}})})
 @api_view(['POST'])
+@permission_classes([AllowAny])
 def send_code(request):
     serializer = PhoneSerializer(data=request.data)
     if serializer.is_valid():
@@ -48,7 +50,9 @@ def send_code(request):
                      # }
                      )
 @api_view(['GET'])
+@permission_classes([AllowAny])
 def check_code(request):
+
     phone = request.query_params.get('phone')
     code = request.query_params.get('code')
 
@@ -67,3 +71,17 @@ def check_code(request):
     token, created = Token.objects.get_or_create(user=user)
 
     return Response({"token": token.key}, status=status.HTTP_200_OK)
+
+
+
+class UserProfileView(generics.RetrieveAPIView):
+    permission_classes = [AllowAny]
+    serializer_class = PhoneSerializer
+
+    def get(self, request, *args, **kwargs):
+
+        data = {
+            'id': 1,
+            'phone': '+7 (912) 355 12-34', # Assuming 'phone' is a field in a related Profile model
+        }
+        return Response(data)

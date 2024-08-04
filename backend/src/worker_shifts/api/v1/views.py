@@ -1,7 +1,7 @@
 from django.views.decorators.csrf import csrf_exempt
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework import generics
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny,IsAuthenticated
 
 from worker_shifts.models import Worker, WorkerTask, Project
 from .serializers import WorkerSerializer, WorkerTaskSerializer, ProjectSerializer
