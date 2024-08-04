@@ -8,7 +8,7 @@ import {
   numeric as vNumeric,
 } from '@vuelidate/validators'
 
-export const imagesRequired = helpers.withMessage('Загрузите изображения', vRequired)
+export const minLengthPhone = helpers.withMessage(`Номер телефона указан некорректно`, vMinLength(10))
 export const required = helpers.withMessage('Поле является обязательным', vRequired)
 export const maxLength = v => helpers.withMessage(`Максимальная длина ${v}`, vMaxLength(v))
 export const minLength = v => helpers.withMessage(`Минимальная длина ${v}`, vMinLength(v))

@@ -3,10 +3,10 @@
 </template>
 
 <script>
-import { useAuthStore } from 'stores/auth'
+import { useProfileStore } from 'src/stores/profile'
 
 export default {
-  name: 'CodeCheckForm',
+  name: 'CheckSmsCodeForm',
   data() {
     return {}
   },

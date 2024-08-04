@@ -7,13 +7,14 @@ const PROFILE = {
   spentBalance: 1000,
 }
 
-export default class AuthApi {
-  static sendCode(email) {
-    return api.post('auth/send-code', { email })
+export default class ProfileApi {
+  static sendCode(phone) {
+    return api.post('projects', { phone })
   }
 
-  static checkCode(email, code, ref) {
-    return api.get('auth/check-code', { params: { email, code, ref } })
+  static checkCode(phone, code) {
+    return { data: { token: 'sometoken' } }
+    return api.get('auth/check-code', { params: { phone, code } })
   }
 
   static getMe() {
