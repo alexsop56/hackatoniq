@@ -6,7 +6,7 @@ const PROJECTS = [
   new ProjectListItem({
     id: 1,
     title: 'ЖК Солнечный',
-    address: 'Адрес адрес адрес адрес',
+    address: 'Кирова ул., 84',
     tasksCount: 0,
     workersCount: 0,
     workersRequiredCount: 13,
