@@ -1,3 +1,4 @@
+from django.views.decorators.csrf import csrf_exempt
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework import generics
 from rest_framework.permissions import AllowAny
@@ -18,6 +19,7 @@ class WorkerListCreate(generics.ListCreateAPIView):
     def get(self, request, *args, **kwargs):
         return super().get(request, *args, **kwargs)
 
+    @csrf_exempt
     @swagger_auto_schema(
         operation_id="создание исполнителя",
         responses={201: WorkerSerializer},
@@ -40,6 +42,7 @@ class WorkerDetail(generics.RetrieveUpdateDestroyAPIView):
     def get(self, request, *args, **kwargs):
         return super().get(request, *args, **kwargs)
 
+    @csrf_exempt
     @swagger_auto_schema(
         operation_id="обновление исполнителя",
         responses={200: WorkerSerializer},
@@ -48,6 +51,7 @@ class WorkerDetail(generics.RetrieveUpdateDestroyAPIView):
     def patch(self, request, *args, **kwargs):
         return super().patch(request, *args, **kwargs)
 
+    @csrf_exempt
     @swagger_auto_schema(
         operation_id="удаление исполнителя",
         responses={204: 'No Content'}
@@ -69,6 +73,7 @@ class WorkerTaskListCreate(generics.ListCreateAPIView):
     def get(self, request, *args, **kwargs):
         return super().get(request, *args, **kwargs)
 
+    @csrf_exempt
     @swagger_auto_schema(
         operation_id="создание задания",
         responses={201: WorkerTaskSerializer},
@@ -91,6 +96,7 @@ class WorkerTaskDetail(generics.RetrieveUpdateDestroyAPIView):
     def get(self, request, *args, **kwargs):
         return super().get(request, *args, **kwargs)
 
+    @csrf_exempt
     @swagger_auto_schema(
         operation_id="обновление задания",
         responses={200: WorkerTaskSerializer},
@@ -113,6 +119,7 @@ class ProjectListCreate(generics.ListCreateAPIView):
     serializer_class = ProjectSerializer
     permission_classes = [AllowAny]
 
+    @csrf_exempt
     @swagger_auto_schema(
         operation_id="получение списка проектов",
         responses={200: ProjectSerializer(many=True)}
@@ -120,6 +127,7 @@ class ProjectListCreate(generics.ListCreateAPIView):
     def get(self, request, *args, **kwargs):
         return super().get(request, *args, **kwargs)
 
+    @csrf_exempt
     @swagger_auto_schema(
         operation_id="создание проекта",
         responses={201: ProjectSerializer},
@@ -142,6 +150,7 @@ class ProjectDetail(generics.RetrieveUpdateDestroyAPIView):
     def get(self, request, *args, **kwargs):
         return super().get(request, *args, **kwargs)
 
+    @csrf_exempt
     @swagger_auto_schema(
         operation_id="обновление проекта",
         responses={200: ProjectSerializer},
@@ -150,6 +159,7 @@ class ProjectDetail(generics.RetrieveUpdateDestroyAPIView):
     def patch(self, request, *args, **kwargs):
         return super().patch(request, *args, **kwargs)
 
+    @csrf_exempt
     @swagger_auto_schema(
         operation_id="удаление проекта",
         responses={204: 'No Content'}

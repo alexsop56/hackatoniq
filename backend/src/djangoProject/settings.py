@@ -53,7 +53,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'drf_yasg',
-    'worker_shifts'
+    'worker_shifts',
+    'account'
 ]
 
 MIDDLEWARE = [
@@ -110,16 +111,28 @@ else:
 
     DATABASES = {
 
-
         'default': {
             'ENGINE': 'django.db.backends.mysql',
-            'NAME': os.getenv('MYSQL_DATABASE'),
-            'USER': os.getenv('MYSQL_USER'),        # Replace with your MySQL username
-            'PASSWORD': os.getenv('MYSQL_PASSWORD'), # Replace with your MySQL password
-            'HOST': os.getenv('MYSQL_HOST'),     # Or the address of your MySQL server
-            'PORT': os.getenv('MYSQL_PORT'),          # Default MySQL port
+            'NAME': 'technoceh',
+            'USER': 'admin_technoceh',        # Replace with your MySQL username
+            'PASSWORD': '123456', # Replace with your MySQL password
+            'HOST': 'localhost',     # Or the address of your MySQL server
+            'PORT': '3306',          # Default MySQL port
         }
     }
+
+    # DATABASES = {
+    #
+    #
+    #     'default': {
+    #         'ENGINE': 'django.db.backends.mysql',
+    #         'NAME': os.getenv('MYSQL_DATABASE'),
+    #         'USER': os.getenv('MYSQL_USER'),        # Replace with your MySQL username
+    #         'PASSWORD': os.getenv('MYSQL_PASSWORD'), # Replace with your MySQL password
+    #         'HOST': os.getenv('MYSQL_HOST'),     # Or the address of your MySQL server
+    #         'PORT': os.getenv('MYSQL_PORT'),          # Default MySQL port
+    #     }
+    # }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -165,3 +178,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 ALLOWED_HOSTS = ['*']
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
+
+
+AUTH_USER_MODEL = 'account.User'

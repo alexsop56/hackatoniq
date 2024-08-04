@@ -19,3 +19,12 @@ class RegisterSerializer(serializers.ModelSerializer):
             password=validated_data['password']
         )
         return user
+
+
+class PhoneSerializer(serializers.Serializer):
+    phone = serializers.CharField(max_length=15)
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['id', 'username']

@@ -1,9 +1,8 @@
 # account/urls.py
 
 from django.urls import path
-from .views import RegisterView, ObtainAuthTokenView
 
-urlpatterns = [
-    path('register/', RegisterView.as_view(), name='register'),
-    # path('login/', ObtainAuthTokenView.as_view(), name='login'),
-]
+from account.api.v1.views import send_code, check_code
+
+urlpatterns = [path('auth/send-code/', send_code, name='send_code'),
+    path('auth/check-code/', check_code, name='check_code'), ]
