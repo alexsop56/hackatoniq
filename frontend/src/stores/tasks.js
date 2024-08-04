@@ -34,7 +34,7 @@ export const useTasksStore = defineStore('tasks', {
   actions: {
     async loadList(page) {
       // TODO
-      return await TaskApi.index(page, this.itemsPerPage).then(response => {
+      return await TaskApi.indexForWorker(page, this.itemsPerPage).then(response => {
         let data = response.data
 
         for (let item of data.items) {

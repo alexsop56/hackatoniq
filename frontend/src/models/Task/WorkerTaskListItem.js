@@ -4,6 +4,7 @@ export default class WorkerTaskListItem {
   startTime
   title
   price
+  address
   workTypeTitle
   workersCount
   workersRequiredCount
@@ -15,6 +16,7 @@ export default class WorkerTaskListItem {
     this.title = data.title
     this.price = data.price
     this.workTypeTitle = data.workTypeTitle
+    this.address = data.address
     this.workersCount = data.workersCount
     this.workersRequiredCount = data.workersRequiredCount
   }
