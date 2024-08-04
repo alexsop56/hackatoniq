@@ -7,24 +7,40 @@ const routes = [
     },
   },
   {
-    path: '/',
-    redirect: 'projects',
-    component: () => import('layouts/MainLayout.vue'),
+    path: '/customer',
+    redirect: '/customer/projects',
+    component: () => import('src/layouts/CustomerLayout.vue'),
     children: [
       {
         path: 'projects',
+        name: 'projects',
         component: () => import('src/pages/ProjectsPage.vue'),
         meta: {
           title: 'Проекты',
-          isAuthRequired: false, // TODO: switch on
         },
       },
       {
         path: 'projects/:id',
+        name: 'project',
         component: () => import('src/pages/ProjectPage.vue'),
         meta: {
           title: 'Проект',
-          isAuthRequired: false, // TODO: switch on
+        },
+      },
+    ],
+  },
+  {
+    path: '/worker',
+    redirect: '/worker/tasks',
+    component: () => import('src/layouts/WorkerLayout.vue'),
+    children: [
+      {
+        path: 'tasks',
+        name: 'tasks',
+        component: () => import('src/pages/TasksPage.vue'),
+        meta: {
+          title: 'Задания',
+          isAuthRequired: false, //TODO
         },
       },
     ],

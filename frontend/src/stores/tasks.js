@@ -10,13 +10,13 @@ export const useTasksStore = defineStore('tasks', {
     total: 0,
     itemsPerPage: 50,
 
+    selectedProject: null,
+
     modals: {
       task: {
         state: false,
         isLoading: false,
         form: new Task(),
-        options: [],
-        flags: [],
       },
     },
   }),
@@ -63,15 +63,19 @@ export const useTasksStore = defineStore('tasks', {
     showTaskModal() {
       this.modal.state = true
     },
+    hideTaskModal() {
+      this.modal.state = false
+    },
     resetTaskModal() {
       this.modal.state = false
       this.modal.form = {}
-      this.modal.options = {}
-      this.modal.flags = {}
     },
     resetList() {
       this.items = []
       this.total = 0
+    },
+    selectProject(project) {
+      this.selectedProject = project
     },
   },
 })

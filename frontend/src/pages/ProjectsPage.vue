@@ -2,7 +2,15 @@
   <q-page class="column">
     <!-- Кнопка создания проекта (когда список пуст)  -->
     <div class="row items-center justify-center flex-1" v-if="!projectsStore.items.length && !projectsStore.isLoading">
-      <q-btn icon="construction" unelevated color="primary" no-caps rounded label="Создать проект" />
+      <q-btn
+        icon="construction"
+        unelevated
+        color="primary"
+        no-caps
+        rounded
+        label="Создать проект"
+        @click="projectsStore.showProjectModal"
+      />
     </div>
 
     <div v-if="!projectsStore.items.length && projectsStore.isLoading">
@@ -22,10 +30,17 @@
 
     <!-- Кнопка чата -->
     <q-page-sticky position="bottom-right" :offset="[18, 18]">
+      <q-btn round no-caps color="primary" class="q-mr-sm" @click="projectsStore.showProjectModal">
+        <q-icon name="add" color="white" />
+      </q-btn>
+
       <q-btn round no-caps color="primary">
         <q-icon name="chat" color="white" />
       </q-btn>
     </q-page-sticky>
+
+    <!-- Модалки -->
+    <project-creating-modal />
   </q-page>
 </template>
 
@@ -34,12 +49,14 @@ import { useProjectsStore } from 'stores/projects'
 
 import ProjectListItem from 'src/components/ProjectsPage/ProjectListItem.vue'
 import ProjectListItemSkeleton from 'src/components/ProjectsPage/ProjectListItemSkeleton.vue'
+import ProjectCreatingModal from 'src/components/ProjectsPage/ProjectCreatingModal.vue'
 
 export default {
   name: 'ProjectsPage',
   components: {
     ProjectListItem,
     ProjectListItemSkeleton,
+    ProjectCreatingModal,
   },
   data() {
     return {

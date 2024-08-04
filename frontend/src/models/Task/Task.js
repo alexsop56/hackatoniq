@@ -1,13 +1,17 @@
 export default class Task {
   id
-  period
+  title
+  startDate
+  startTime
   price
   workTypeTitle
   workersRequiredCount
 
   constructor(data = {}) {
     this.id = data.id
-    this.period = data.period
+    this.title = data.title
+    this.startDate = data.startDate
+    this.startTime = data.startTime
     this.price = data.price
     this.workTypeTitle = data.workTypeTitle
     this.workersRequiredCount = data.workersRequiredCount

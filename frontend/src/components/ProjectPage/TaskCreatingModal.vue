@@ -1,64 +1,138 @@
 <template>
   <q-dialog v-model="modal.state" @hide="onModalHide">
-    <q-card flat>
-      <q-card-section>
+    <q-card flat class="overflow-hidden">
+      <q-card-section class="column row-md justify-between">
         <p class="modal-header">Создание задания</p>
+
+        <div>
+          <p class="font-semibold">Доступный бюджет:</p>
+          <p class="font-light">{{ toMoney(budget) }}₽</p>
+        </div>
       </q-card-section>
 
-      <q-card-section>
-        <!-- Период, на который необходимо создать задания -->
-        <!-- <q-input
-          v-model="modal.form.period"
-          bg-color="white"
-          label-color="grey-3"
-          label="Период, на который необходимо создать задания"
-          :mask="$validation.modal.form.period.mask"
-          v-replace-characters-for-mask="$validation.modal.form.period.mask"
-          :error="v$.modal.form.period.$error"
-          :error-message="v$.modal.form.period.$errors.at(-1)?.$message"
-          @update:model-value="updateModel"
-          clearable
+      <q-card-section class="row items-center q-col-gutter-md">
+        <!-- Название -->
+        <q-input
+          class="col-12"
+          color="primary"
+          label="Название"
+          label-color="secondary"
+          v-model="modal.form.title"
+          :error="v$.modal.form.title.$error"
+          :error-message="v$.modal.form.title.$errors[0]?.$message"
+          no-error-icon
+        />
+
+        <!-- Дата задания -->
+        <q-input
+          class="col-12 col-md-6"
+          v-model="modal.form.startDate"
+          label="Дата задания"
+          placeholder="дд.мм.гггг"
+          no-error-icon
+          :error="v$.modal.form.startDate.$error"
+          :error-message="v$.modal.form.startDate.$errors.at(-1)?.$message"
+          mask="##.##.####"
+          @blur="v$.modal.form.startDate.$touch"
         >
           <template #append>
             <q-icon name="event" class="cursor-pointer">
-              <q-popup-proxy v-model="periodStateOfPicker" cover transition-show="scale" transition-hide="scale">
+              <q-popup-proxy v-model="startDatePicker" cover transition-show="scale" transition-hide="scale">
                 <q-date
-                  v-model="preparedPeriod"
-                  color="main-theme"
-                  text-color="accent-font"
-                  range
+                  v-model="modal.form.startDate"
+                  today-btn
+                  mask="DD.MM.YYYY"
                   :locale="$config.dateLocale"
-                  :mask="$validation.date.format"
-                  :subtitle="period ? undefined : ' '"
-                  :title="period ? false : $t('field.periodSelect')"
-                  @update:model-value="periodStateOfPicker = false"
+                  @update:model-value="startDatePicker = false"
                 >
                   <div class="row items-center justify-end">
-                    <q-btn v-close-popup label="Закрыть" color="accent-font" flat />
+                    <q-btn v-close-popup label="Закрыть" color="primary" flat />
                   </div>
                 </q-date>
               </q-popup-proxy>
             </q-icon>
           </template>
-        </q-input> -->
+        </q-input>
+
+        <!-- Время задания -->
+        <q-input
+          class="col-12 col-md-6"
+          v-model="modal.form.startTime"
+          label="Время задания"
+          placeholder="чч:мм"
+          no-error-icon
+          :error="v$.modal.form.startTime.$error"
+          :error-message="v$.modal.form.startTime.$errors.at(-1)?.$message"
+          mask="##:##"
+          @blur="v$.modal.form.startTime.$touch"
+        >
+          <template #append>
+            <q-icon name="schedule" class="cursor-pointer">
+              <q-popup-proxy v-model="startTimePicker" cover transition-show="scale" transition-hide="scale">
+                <q-time
+                  format24h
+                  v-model="modal.form.startTime"
+                  today-btn
+                  mask="HH:mm"
+                  :locale="$config.dateLocale"
+                  @update:model-value="startTimePicker = false"
+                >
+                  <div class="row items-center justify-end">
+                    <q-btn v-close-popup label="Закрыть" color="primary" flat />
+                  </div>
+                </q-time>
+              </q-popup-proxy>
+            </q-icon>
+          </template>
+        </q-input>
+
+        <!-- Вид работы -->
+        <q-input
+          class="col-12 col-md-6"
+          color="primary"
+          label="Вид работы"
+          label-color="secondary"
+          v-model="modal.form.workTypeTitle"
+          :error="v$.modal.form.workTypeTitle.$error"
+          :error-message="v$.modal.form.workTypeTitle.$errors[0]?.$message"
+          no-error-icon
+        />
+
+        <!-- Количество работников -->
+        <q-input
+          type="number"
+          class="col-12 col-md-6"
+          color="primary"
+          label="Количество работников"
+          label-color="secondary"
+          v-model.number="modal.form.workersRequiredCount"
+          :error="v$.modal.form.workersRequiredCount.$error"
+          :error-message="v$.modal.form.workersRequiredCount.$errors[0]?.$message"
+          no-error-icon
+        />
 
         <!-- Ставка -->
         <q-input
+          class="col-12 col-md-6"
           type="number"
           color="primary"
           label="Ставка"
-          input-class="text-accent"
           label-color="secondary"
           v-model.number="modal.form.price"
           :error="v$.modal.form.price.$error"
           :error-message="v$.modal.form.price.$errors[0]?.$message"
-          hide-bottom-space
           no-error-icon
         >
           <template v-slot:append>
             <q-icon name="currency_ruble" color="secondary" size="16px" />
           </template>
         </q-input>
+
+        <!-- Предлагаемая ставка -->
+        <div class="col-12">
+          <p class="font-semibold">Предлагаемая ставка:</p>
+          <p class="font-light">{{ suggestedPrice }}₽</p>
+        </div>
       </q-card-section>
 
       <q-card-section>
@@ -78,25 +152,33 @@
 
 <script>
 import { useVuelidate } from '@vuelidate/core'
-import { required, minValue, maxValue, numeric } from 'src/utils/validators'
+import { required, minValue, maxValue, numeric, maxLength } from 'src/utils/validators'
 import { useTasksStore } from 'src/stores/tasks'
+import { toMoney } from 'src/utils/formatters'
 
 export default {
   name: 'TaskCreatingModal',
-
   data() {
     return {
       tasksStore: useTasksStore(),
 
-      period: null,
-      periodStateOfPicker: false,
+      suggestedPrice: 123,
+      budget: 1000,
+
+      startDatePicker: false,
+      startTimePicker: false,
     }
   },
   validations() {
     return {
       modal: {
         form: {
+          title: { required, maxLength: maxLength(100) },
           price: { required, numeric, minValue: minValue(0), maxValue: maxValue(100000) },
+          startDate: { required },
+          startTime: { required },
+          workTypeTitle: { required, maxLength: maxLength(100) },
+          workersRequiredCount: { required, numeric },
         },
       },
     }
@@ -108,37 +190,17 @@ export default {
       if (this.v$.$error) return
 
       this.tasksStore.store().then(() => {
-        this.modal.state = false
+        this.tasksStore.hideTaskModal()
       })
     },
     onModalHide() {
       this.tasksStore.resetTaskModal()
     },
-    updateModel() {
-      this.v$.period.$touch()
-
-      const period = this.parseRangeFromString(this.period)
-
-      // Форматируем не через quasar data, потому что он не форматирует дату, если это 12 - 31 дни месяца (да да)
-      // пробовал форматировать вот так date.formatToDashedDate(period.from, 'YYYY-MM-DD')
-
-      this.registry.workStartDate = this.formatToDashedDate(period.from)
-      this.registry.workEndDate = this.formatToDashedDate(period.to)
-    },
+    toMoney,
   },
   computed: {
     modal() {
       return this.tasksStore.modals.task
-    },
-    preparedPeriod: {
-      get() {
-        return this.parseRangeFromString(this.period)
-      },
-      set(data) {
-        this.period = data && data.from + ' - ' + data.to
-
-        this.updateModel()
-      },
     },
   },
   setup() {

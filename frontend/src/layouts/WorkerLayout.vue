@@ -1,11 +1,7 @@
 <template>
   <q-layout view="hHh lpr fFf">
     <q-header>
-      <q-toolbar>
-        <q-space />
-
-        <q-icon name="engineering" size="30px" />
-      </q-toolbar>
+      <q-toolbar class="justify-center"></q-toolbar>
     </q-header>
 
     <q-page-container>
@@ -30,34 +26,23 @@
 
 <script>
 export default {
-  name: 'MainLayout',
+  name: 'WorkerLayout',
+
   data() {
     return {
-      tab: 'projects',
+      tab: 'tasks',
 
       routeButtons: [
         {
-          label: 'Проекты',
-          name: 'projects',
-          to: { path: '/projects' },
+          label: 'Задания',
+          name: 'tasks',
+          to: { name: '/tasks' },
           icon: 'format_list_bulleted',
         },
         {
-          label: 'Вкладка 2',
-          name: 'name2',
-          to: { path: '/name2' },
-          icon: 'work',
-        },
-        {
-          label: 'Вкладка 3',
-          name: 'name3',
-          to: { path: '/name3' },
-          icon: 'pin_drop',
-        },
-        {
-          label: 'Вкладка 4',
-          name: 'name4',
-          to: { path: '/name4' },
+          label: 'Профиль',
+          name: 'profile',
+          to: { path: '/profile' },
           icon: 'person',
         },
       ],

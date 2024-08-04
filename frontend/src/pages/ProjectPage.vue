@@ -34,10 +34,11 @@
 
 <script>
 import { useTasksStore } from 'stores/tasks'
+import { useProjectsStore } from 'src/stores/projects'
 
+import TaskListItemSkeleton from 'src/components/ProjectPage/TaskListItemSkeleton.vue'
 import TaskCreatingModal from 'src/components/ProjectPage/TaskCreatingModal.vue'
 import TaskListItem from 'src/components/ProjectPage/TaskListItem.vue'
-import TaskListItemSkeleton from 'src/components/ProjectPage/TaskListItemSkeleton.vue'
 
 export default {
   name: 'ProjectPage',
@@ -49,12 +50,19 @@ export default {
   data() {
     return {
       tasksStore: useTasksStore(),
+      projectsStore: useProjectsStore(),
 
       skeletonsCount: 15,
     }
   },
-  mounted() {
+  async mounted() {
     this.tasksStore.resetList()
+
+    if (this.projectId) {
+      const project = await this.projectsStore.loadProject(this.projectId)
+
+      this.tasksStore.selectProject(project)
+    }
   },
   methods: {
     async onLoad(index, done) {
@@ -65,6 +73,11 @@ export default {
 
         this.tasksStore.isLoading = false
       })
+    },
+  },
+  computed: {
+    projectId() {
+      return this.$route.params.id
     },
   },
 }

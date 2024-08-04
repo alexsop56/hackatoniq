@@ -17,9 +17,8 @@
           </div>
         </div>
 
-        <!-- Название и тип работ -->
+        <!-- Название -->
         <div class="col-12 col-md-3 q-mt-sm q-mt-md-none">
-          <q-skeleton type="text" class="flex-1" height="20px" />
           <q-skeleton type="text" class="flex-1" height="20px" />
         </div>
 
@@ -48,13 +47,13 @@
 
         <!-- Ставка и итоговая стоимость -->
         <div class="col-md-3 column q-mt-sm q-mt-md-none">
-          <div class="q-mt-sm q-mt-md-none row items-center">
+          <div class="col-md-3 q-mt-sm q-mt-md-none row items-center">
             <q-icon name="account_balance_wallet" size="20px" color="primary" class="q-mr-xs" />
 
             <q-skeleton type="text" width="15px" height="20px" />
           </div>
 
-          <div class="q-mt-sm q-mt-md-none row items-center">
+          <div class="col-md-3 q-mt-sm q-mt-md-none row items-center">
             <q-icon name="credit_score" size="20px" color="primary" class="q-mr-xs" />
 
             <q-skeleton type="text" width="15px" height="20px" />
@@ -74,7 +73,7 @@
 
 <script>
 export default {
-  name: 'TaskListItemSkeleton',
+  name: 'WorkerTaskListItemSkeleton',
 }
 </script>
 <style lang="scss" scoped>

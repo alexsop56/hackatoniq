@@ -4,7 +4,7 @@
       {{ title }}
     </span>
 
-    <span class="progress-bar__fullness">{{ value }} / {{ max }}</span>
+    <span class="progress-bar__fullness">{{ max }} / {{ value }}</span>
   </div>
 </template>
 
