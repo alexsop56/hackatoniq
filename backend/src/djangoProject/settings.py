@@ -121,30 +121,30 @@ if os.getenv('TESTING_LOCALLY')=='1234':
 
 else:
 
-    # DATABASES = {
-    #
-    #     'default': {
-    #         'ENGINE': 'django.db.backends.mysql',
-    #         'NAME': 'technoceh',
-    #         'USER': 'admin_technoceh',        # Replace with your MySQL username
-    #         'PASSWORD': '123456', # Replace with your MySQL password
-    #         'HOST': 'localhost',     # Or the address of your MySQL server
-    #         'PORT': '3306',          # Default MySQL port
-    #     }
-    # }
-
     DATABASES = {
-
 
         'default': {
             'ENGINE': 'django.db.backends.mysql',
-            'NAME': os.getenv('MYSQL_DATABASE'),
-            'USER': os.getenv('MYSQL_USER'),        # Replace with your MySQL username
-            'PASSWORD': os.getenv('MYSQL_PASSWORD'), # Replace with your MySQL password
-            'HOST': os.getenv('MYSQL_HOST'),     # Or the address of your MySQL server
-            'PORT': os.getenv('MYSQL_PORT'),          # Default MySQL port
+            'NAME': 'technoceh',
+            'USER': 'admin_technoceh',        # Replace with your MySQL username
+            'PASSWORD': '123456', # Replace with your MySQL password
+            'HOST': 'localhost',     # Or the address of your MySQL server
+            'PORT': '3306',          # Default MySQL port
         }
     }
+
+    # DATABASES = {
+    #
+    #
+    #     'default': {
+    #         'ENGINE': 'django.db.backends.mysql',
+    #         'NAME': os.getenv('MYSQL_DATABASE'),
+    #         'USER': os.getenv('MYSQL_USER'),        # Replace with your MySQL username
+    #         'PASSWORD': os.getenv('MYSQL_PASSWORD'), # Replace with your MySQL password
+    #         'HOST': os.getenv('MYSQL_HOST'),     # Or the address of your MySQL server
+    #         'PORT': os.getenv('MYSQL_PORT'),          # Default MySQL port
+    #     }
+    # }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
