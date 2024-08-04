@@ -43,7 +43,7 @@ export default {
     async onLoad(index, done) {
       this.workerTasksStore.isLoading = true
 
-      this.workerTasksStore.loadList(index).then(() => {
+      this.workerTasksStore.loadListForWorker(index).then(() => {
         done(this.workerTasksStore.isAllItemsLoaded)
 
         this.workerTasksStore.isLoading = false

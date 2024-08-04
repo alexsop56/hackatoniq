@@ -17,10 +17,11 @@
       </div>
 
       <!-- Название -->
-      <div class="col-12 col-md-3 q-mt-sm q-mt-md-none">
+      <div class="col-12 col-md-3 q-mt-sm q-mt-md-none column">
         <span>
           {{ item.workTypeTitle }}
         </span>
+        <span class="item-secondary-text">{{ item.address }}</span>
       </div>
 
       <!-- Количество исполнителей и ставка  -->
