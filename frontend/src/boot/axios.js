@@ -9,7 +9,7 @@ import { SHOW_ERROR_MESSAGE, SHOW_SUCCESS_MESSAGE } from './notify'
 // "export default () => {}" function below (which runs individually
 // for each client)
 const api = axios.create({
-  baseURL: 'http://localhost:8000/api',
+  baseURL: 'http://89.169.133.130:8000/api',
   headers: {
     'Accept': 'application/json',
     'Content-Type': 'application/json',
