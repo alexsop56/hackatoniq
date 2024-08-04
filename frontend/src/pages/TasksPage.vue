@@ -22,6 +22,7 @@ import { useWorkerTasksStore } from 'stores/workerTasks'
 
 import WorkerTaskListItemSkeleton from 'src/components/TasksPage/WorkerTaskListItemSkeleton.vue'
 import WorkerTaskListItem from 'src/components/TasksPage/WorkerTaskListItem.vue'
+import { useProfileStore } from 'src/stores/profile'
 
 export default {
   name: 'TasksPage',
@@ -32,12 +33,17 @@ export default {
   data() {
     return {
       workerTasksStore: useWorkerTasksStore(),
+      profileStore: useProfileStore(),
 
       skeletonsCount: 15,
     }
   },
   async mounted() {
     this.workerTasksStore.resetList()
+
+    if (!this.profileStore.isProfileLoaded) {
+      this.profileStore.loadProfile()
+    }
   },
   methods: {
     async onLoad(index, done) {

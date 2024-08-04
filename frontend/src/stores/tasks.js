@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia'
+import Project from 'src/models/Project/Project'
 import Task from 'src/models/Task/Task'
 import TaskListItem from 'src/models/Task/TaskListItem'
 import TaskApi from 'src/services/api/TaskApi'
@@ -34,7 +35,7 @@ export const useTasksStore = defineStore('tasks', {
   actions: {
     async loadList(page) {
       // TODO
-      return await TaskApi.indexForWorker(page, this.itemsPerPage).then(response => {
+      return await TaskApi.index(page, this.itemsPerPage).then(response => {
         let data = response.data
 
         for (let item of data.items) {

@@ -38,7 +38,7 @@ export default route(function (/* { store, ssrContext } */) {
     })
 
     if (to.meta.isAuthRequired && !localStorage.getItem('token')) {
-      Router.push('/auth')
+      Router.push({ name: 'auth' })
     }
   })
 

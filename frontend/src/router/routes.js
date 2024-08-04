@@ -46,7 +46,7 @@ const routes = [
         component: () => import('src/pages/TasksPage.vue'),
         meta: {
           title: 'Задания',
-          isAuthRequired: false, //TODO
+          isAuthRequired: false,
         },
       },
       {
@@ -55,7 +55,7 @@ const routes = [
         component: () => import('src/pages/ProfilePage.vue'),
         meta: {
           title: 'Авторизация',
-          isAuthRequired: false, //TODO
+          isAuthRequired: true,
         },
       },
     ],

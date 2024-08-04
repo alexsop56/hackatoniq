@@ -28,7 +28,7 @@ export default boot(({ app, router, store }) => {
     error => {
       if (error.request.status == 401 || error.request.status == 403) {
         localStorage.removeItem('token')
-        router.push('/auth')
+        router.push({ name: 'auth' })
 
         throw error
       }

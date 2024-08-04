@@ -94,3 +94,28 @@ u {
   color: $accent;
   font-family: $font-family-inter-semibold;
 }
+
+.error-notification {
+  background-color: rgba($negative, 0.95);
+  color: $accent;
+  border-radius: 30px;
+}
+
+.success-notification {
+  background-color: rgba($positive, 0.95);
+  color: $accent;
+  border-radius: 30px;
+}
+
+.sms-code-input:focus::placeholder {
+  opacity: 0;
+}
+
+.sms-code-input::placeholder,
+.sms-code-input {
+  text-align: center;
+}
+
+.sms-code-input::placeholder {
+  letter-spacing: 1px;
+}

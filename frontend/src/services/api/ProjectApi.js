@@ -82,7 +82,6 @@ const PROJECTS = [
   }),
 ]
 export default class ProjectApi {
-  // TODO
   static index() {
     return new Promise(resolve => {
       const result = {
@@ -109,16 +108,6 @@ export default class ProjectApi {
   }
 
   static store(data) {
-    return new Promise(resolve => {
-      const result = {
-        data: {
-          items: [new ProjectListItem(data)],
-        },
-      }
-
-      setTimeout(() => resolve(result), 1000)
-    })
-
-    return api.post(`projects`)
+    return api.post('projects/', data)
   }
 }

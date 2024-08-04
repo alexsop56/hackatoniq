@@ -42,7 +42,7 @@
       </div>
 
       <!-- Кнопка "Взять задание" -->
-      <div class="col-md-3 q-mt-sm q-mt-md-none">
+      <div class="col-md-3 q-mt-sm q-mt-md-none" v-if="profileStore.issetToken">
         <q-btn label="Взять задание" color="primary" no-caps rounded unelevated />
       </div>
     </q-card-section>
@@ -50,16 +50,21 @@
 </template>
 
 <script>
+import { useProfileStore } from 'src/stores/profile'
 import { toMoney } from 'src/utils/formatters'
 
 export default {
   name: 'WorkerTaskListItem',
-
   props: {
     item: {
       type: Object,
       required: true,
     },
+  },
+  data() {
+    return {
+      profileStore: useProfileStore(),
+    }
   },
   methods: { toMoney },
 }

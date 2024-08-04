@@ -1,1 +1,1 @@
-export const toMoney = value => new Intl.NumberFormat('ru').format(value)
+export const toMoney = value => (value ? new Intl.NumberFormat('ru').format(value) : null)

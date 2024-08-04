@@ -2,9 +2,11 @@ import { defineStore } from 'pinia'
 import Profile from 'src/models/Profile/Profile'
 import ProfileApi from 'src/services/api/ProfileApi'
 import { api } from 'src/boot/axios'
+import { SHOW_ERROR_MESSAGE } from 'src/boot/notify'
 
 export const useProfileStore = defineStore('profile', {
   state: () => ({
+    token: localStorage.getItem('token'),
     auth: {
       phone: null,
       code: null,
@@ -16,6 +18,7 @@ export const useProfileStore = defineStore('profile', {
   }),
   getters: {
     isProfileLoaded: state => state.profile?.id,
+    issetToken: state => state.token,
   },
   actions: {
     loadProfile() {
@@ -26,7 +29,7 @@ export const useProfileStore = defineStore('profile', {
     sendCode() {
       this.auth.isLoading = true
 
-      ProfileApi.sendCode(this.phone)
+      ProfileApi.sendCode(this.auth.phone)
         .then(response => {
           this.auth.isSmsSent = true
         })
@@ -34,16 +37,26 @@ export const useProfileStore = defineStore('profile', {
           this.auth.isLoading = false
         })
     },
-    checkCode() {
-      ProfileApi.checkCode(this.phone, this.code).then(response => {
-        console.log(response)
-        const { token } = response.data
+    async checkCode() {
+      this.auth.isLoading = true
 
-        localStorage.setItem('token', token)
-        api.defaults.headers.common['Authorization'] = token
+      return await ProfileApi.checkCode(this.auth.phone, this.auth.code)
+        .then(response => {
+          const { token } = response.data
 
-        this.resetAuth()
-      })
+          localStorage.setItem('token', token)
+          api.defaults.headers.common['Authorization'] = token
+          this.token = token
+
+          this.router.push({ name: 'tasks' })
+          this.resetAuth()
+        })
+        .catch(error => {
+          SHOW_ERROR_MESSAGE(error.response.data?.error)
+        })
+        .finally(() => {
+          this.auth.isLoading = false
+        })
     },
 
     resetAuth() {
@@ -53,6 +66,9 @@ export const useProfileStore = defineStore('profile', {
         isLoading: false,
         isSmsSent: false,
       }
+    },
+    logout() {
+      localStorage.removeItem('token')
     },
   },
 })

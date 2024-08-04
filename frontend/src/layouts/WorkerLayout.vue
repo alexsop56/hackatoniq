@@ -51,9 +51,5 @@ export default {
       ],
     }
   },
-  mounted() {
-    const store = useProfileStore()
-    store.sendCode(12312312313)
-  },
 }
 </script>
