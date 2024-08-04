@@ -1,7 +1,7 @@
 import uuid
-
+import random
 from django.db import models
-
+from datetime import date, time
 class Worker(models.Model):
     name = models.CharField(max_length=100)
     inn = models.CharField(max_length=100)
@@ -15,12 +15,19 @@ class Worker(models.Model):
     class Meta:
         db_table = 'worker'
 
+
 class Project(models.Model):
     title = models.CharField(max_length=100)
     address = models.CharField(max_length=100)
-    workersRequiredCount = models.IntegerField()
-    attentionCount = models.IntegerField()
-    todoCount = models.IntegerField()
+    start_date = models.DateField(null = True, blank =True)
+    start_time = models.TimeField(null = True, blank =True)  # Default time is 08:00 AM
+    price = models.FloatField(default=0)
+    total_price = models.FloatField(default=0)  # Random total price
+    is_finished = models.BooleanField(default=0)  # Random finished status
+    work_type_title = models.CharField(max_length=100, default="Покраска стен")
+    workers_required_count = models.IntegerField(default=0)
+    workers_count = models.IntegerField(default=0)
+    views = models.IntegerField(default=0)
 
     def __str__(self):
         return self.title
@@ -32,18 +39,16 @@ class WorkerTask(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     project = models.ForeignKey(Project, related_name='tasks', on_delete=models.CASCADE)
     workers = models.ManyToManyField(Worker, related_name='shifts')
-    workersCount = models.IntegerField()
-    workersRequiredCount = models.IntegerField()
-    views = models.IntegerField()
-    workTypeTitle = models.CharField(max_length=100)
-    # startTime = models.DateTimeField()
-    # endTime = models.DateTimeField()
-
-
+    workers_count = models.IntegerField(default=0)
+    workers_required_count = models.IntegerField()
+    work_type_title = models.CharField(max_length=100)
+    price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    start_date = models.DateField(default=date.today)
+    start_time = models.TimeField(default=time(10, 0))
+    views = models.IntegerField(default=0)
     def __str__(self):
         worker_names = ', '.join(worker.name for worker in self.workers.all())
-        return f"Shift ({worker_names}) ({self.start_time} - {self.end_time})"
-
+        return f"Task ({worker_names}) ({self.start_date} {self.start_time})"
 
     class Meta:
         db_table = 'worker_task'
