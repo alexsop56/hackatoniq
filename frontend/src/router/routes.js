@@ -7,6 +7,10 @@ const routes = [
     },
   },
   {
+    path: '/',
+    redirect: '/customer/projects',
+  },
+  {
     path: '/customer',
     redirect: '/customer/projects',
     component: () => import('src/layouts/CustomerLayout.vue'),
