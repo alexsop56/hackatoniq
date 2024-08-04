@@ -3,7 +3,7 @@ from drf_yasg.utils import swagger_auto_schema
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-
+from rest_framework.authtoken.models import Token
 from account.models import User
 from .serializers import PhoneSerializer, UserSerializer
 
@@ -64,5 +64,6 @@ def check_code(request):
         return Response({"error": "Invalid code"}, status=status.HTTP_400_BAD_REQUEST)
 
     serializer = UserSerializer(user)
-    response_data = {'id': user.id, 'phone': user.username}
-    return Response(response_data, status=status.HTTP_200_OK)
+    token, created = Token.objects.get_or_create(user=user)
+
+    return Response({"token": token.key}, status=status.HTTP_200_OK)
