@@ -1,12 +1,5 @@
 const routes = [
   {
-    path: '/auth',
-    component: () => import('src/pages/AuthPage.vue'),
-    meta: {
-      isAuthRequired: false,
-    },
-  },
-  {
     path: '/',
     redirect: '/customer/projects',
   },
@@ -39,11 +32,29 @@ const routes = [
     component: () => import('src/layouts/WorkerLayout.vue'),
     children: [
       {
+        path: 'auth',
+        name: 'auth',
+        component: () => import('src/pages/AuthPage.vue'),
+        meta: {
+          title: 'Авторизация',
+          isAuthRequired: false,
+        },
+      },
+      {
         path: 'tasks',
         name: 'tasks',
         component: () => import('src/pages/TasksPage.vue'),
         meta: {
           title: 'Задания',
+          isAuthRequired: false, //TODO
+        },
+      },
+      {
+        path: 'profile',
+        name: 'profile',
+        component: () => import('src/pages/ProfilePage.vue'),
+        meta: {
+          title: 'Авторизация',
           isAuthRequired: false, //TODO
         },
       },

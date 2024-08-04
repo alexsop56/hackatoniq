@@ -1,7 +1,9 @@
 <template>
   <q-layout view="hHh lpr fFf">
     <q-header>
-      <q-toolbar class="justify-center"></q-toolbar>
+      <q-toolbar>
+        <span class="font-semibold">Личный кабинет</span>
+      </q-toolbar>
     </q-header>
 
     <q-page-container>
@@ -25,9 +27,10 @@
 </template>
 
 <script>
+import { useProfileStore } from 'src/stores/profile'
+
 export default {
   name: 'WorkerLayout',
-
   data() {
     return {
       tab: 'tasks',
@@ -36,17 +39,21 @@ export default {
         {
           label: 'Задания',
           name: 'tasks',
-          to: { name: '/tasks' },
+          to: { name: 'tasks' },
           icon: 'format_list_bulleted',
         },
         {
           label: 'Профиль',
           name: 'profile',
-          to: { path: '/profile' },
+          to: { name: 'profile' },
           icon: 'person',
         },
       ],
     }
+  },
+  mounted() {
+    const store = useProfileStore()
+    store.sendCode(12312312313)
   },
 }
 </script>

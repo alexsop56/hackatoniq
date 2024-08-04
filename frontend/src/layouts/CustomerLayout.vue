@@ -1,7 +1,7 @@
 <template>
   <q-layout view="hHh lpr fFf">
-    <q-header>
-      <q-toolbar class="justify-center">
+    <q-header class="justify-center">
+      <q-toolbar>
         <project-page-toolbar-content v-if="isProjectPage" />
         <projects-page-toolbar-content v-if="isProjectsListPage" />
       </q-toolbar>

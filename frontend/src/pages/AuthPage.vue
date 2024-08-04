@@ -1,27 +1,28 @@
 <template>
-  <div class="h-100vh w-100 flex-center column">
+  <q-page class="h-100 flex-center column">
     <transition name="fade" mode="out-in">
-      <sms-send-form v-if="!store.isSmsSent" />
-      <sms-check-form v-else-if="store.isSmsSent" />
+      <send-sms-code-form v-if="!profileStore.auth.isSmsSent" />
+      <check-sms-code-form v-else-if="profileStore.auth.isSmsSent" />
     </transition>
-  </div>
+  </q-page>
 </template>
 
 <script>
-import { useAuthStore } from 'stores/auth'
+import { useProfileStore } from 'src/stores/profile'
 
-import SmsCheckForm from 'src/components/AuthPage/CodeCheckForm.vue'
-import SmsSendForm from 'src/components/AuthPage/CodeSendForm.vue'
+import CheckSmsCodeForm from 'src/components/AuthPage/CheckSmsCodeForm.vue'
+import SendSmsCodeForm from 'src/components/AuthPage/SendSmsCodeForm.vue'
 
 export default {
+  name: 'AuthPage',
   data() {
     return {
-      store: useAuthStore(),
+      profileStore: useProfileStore(),
     }
   },
   components: {
-    SmsCheckForm,
-    SmsSendForm,
+    CheckSmsCodeForm,
+    SendSmsCodeForm,
   },
 }
 </script>
